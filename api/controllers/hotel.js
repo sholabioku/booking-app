@@ -1,4 +1,5 @@
 import Hotel from '../models/Hotel.js';
+import Room from '../models/Room.js';
 
 // @desc Create Hotel
 // @route POST /api/v1/hotels
@@ -107,6 +108,23 @@ export const countByType = async (req, res, next) => {
       { type: 'villas', count: villaCount },
       { type: 'cabins', count: cabinCount },
     ]);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc Get all rooms in a hotel
+// @route GET /api/v1/hotels/room/:id
+// @access Private
+export const getHotelRooms = async (req, res, next) => {
+  try {
+    const hotel = await Hotel.findById(req.params.id);
+    const list = await Promise.all(
+      hotel.rooms.map((room) => {
+        return Room.findById(room);
+      })
+    );
+    res.status(200).json(list);
   } catch (error) {
     next(error);
   }
