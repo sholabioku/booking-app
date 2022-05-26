@@ -44,7 +44,7 @@ export const updateRoom = async (req, res, next) => {
 };
 
 // @desc Update Room Availability
-// @route PUT /api/v1/rooms/availability/:id
+// @route PUT /api/v1/rooms/availability/:roomId
 // @access Private
 export const updateRoomAvailability = async (req, res, next) => {
   try {

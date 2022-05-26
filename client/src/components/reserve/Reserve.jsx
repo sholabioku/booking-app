@@ -4,6 +4,7 @@ import { useContext, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import { SearchContext } from '../../context/SearchContext';
 import './reserve.css';
+import axios from 'axios';
 
 const Reserve = ({ setOpen, hotelId }) => {
   const { dates } = useContext(SearchContext);
@@ -45,7 +46,18 @@ const Reserve = ({ setOpen, hotelId }) => {
     );
   };
 
-  const handleClick = (e) => {};
+  const handleClick = async () => {
+    try {
+      await Promise.all(
+        selectedRooms.map((roomId) => {
+          const res = axios.put(`/rooms/availability/${roomId}`, {
+            dates: allDates,
+          });
+          return res.data;
+        })
+      );
+    } catch (error) {}
+  };
 
   return (
     <div className='reserve'>
