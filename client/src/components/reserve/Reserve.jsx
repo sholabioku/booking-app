@@ -1,12 +1,14 @@
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useContext, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import { SearchContext } from '../../context/SearchContext';
 import './reserve.css';
 import axios from 'axios';
 
 const Reserve = ({ setOpen, hotelId }) => {
+  const navigate = useNavigate();
   const { dates } = useContext(SearchContext);
   const [selectedRooms, setSelectedRooms] = useState([]);
 
@@ -56,6 +58,8 @@ const Reserve = ({ setOpen, hotelId }) => {
           return res.data;
         })
       );
+      setOpen(false);
+      navigate('/');
     } catch (error) {}
   };
 
