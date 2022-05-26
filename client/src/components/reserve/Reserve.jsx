@@ -26,7 +26,14 @@ const Reserve = ({ setOpen, hotelId }) => {
     return dates;
   };
 
-  console.log(getDatesInRange(dates[0].startDate, dates[0].endDate));
+  const allDates = getDatesInRange(dates[0].startDate, dates[0].endDate);
+
+  const isAvailabe = (roomNumber) => {
+    const isFound = roomNumber.unavailableDates.some((date) =>
+      allDates.includes(new Date(date).getTime())
+    );
+    return !isFound;
+  };
 
   const handleSelect = (e) => {
     const checked = e.target.checked;
@@ -59,16 +66,19 @@ const Reserve = ({ setOpen, hotelId }) => {
               </div>
               <div className='rPrice'>{item.price}</div>
             </div>
-            {item.roomNumbers.map((roomNumber) => (
-              <div className='room'>
-                <label>{roomNumber.number}</label>
-                <input
-                  type='checkbox'
-                  value={roomNumber._id}
-                  onChange={handleSelect}
-                />
-              </div>
-            ))}
+            <div className='rSelectRooms'>
+              {item.roomNumbers.map((roomNumber) => (
+                <div className='room'>
+                  <label>{roomNumber.number}</label>
+                  <input
+                    type='checkbox'
+                    value={roomNumber._id}
+                    onChange={handleSelect}
+                    disabled={!isAvailabe(roomNumber)}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         ))}
         <button onClick={handleClick} className='rButton'>
