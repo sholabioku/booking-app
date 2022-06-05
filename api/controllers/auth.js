@@ -12,11 +12,8 @@ export const register = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(req.body.password, salt);
 
-    const { username, email } = req.body;
-
     const newUser = new User({
-      username,
-      email,
+      ...req.body,
       password: hash,
     });
 
