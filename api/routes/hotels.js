@@ -47,4 +47,16 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// @desc Get All Hotels
+// @route GET /api/v1/hotels
+// @access Public
+router.get('/', async (req, res) => {
+  try {
+    const hotels = await Hotel.find();
+    res.status(200).json(hotels);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 export default router;
