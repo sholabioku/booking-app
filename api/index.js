@@ -30,7 +30,18 @@ app.use('/api/v1/users', usersRoute);
 app.use('/api/v1/hotels', hotelsRoute);
 app.use('/api/v1/rooms', roomsRoute);
 
-app.listen(8800, () => {
-  connectDB();
-  console.log('Server is running on port 8800'.yellow.bold);
-});
+// error handler
+app.use((err, req, res, next) => {
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || 'Internal Server Error';
+  return res.status(errorStatus).json({
+    success: false,
+    status: errorStatus,
+    message: errorMessage,
+    stack: process.env.NODE_ENV === 'development' ? err.stack : '',
+  });
+}),
+  app.listen(8800, () => {
+    connectDB();
+    console.log('Server is running on port 8800'.yellow.bold);
+  });
