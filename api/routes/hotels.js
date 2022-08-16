@@ -59,4 +59,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+// @desc Get Hotel by ID
+// @route GET /api/v1/hotels/:id
+// @access Private
+router.get('/:id', async (req, res) => {
+  try {
+    const hotel = await Hotel.findById(req.params.id);
+    res.status(200).json(hotel);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 export default router;
