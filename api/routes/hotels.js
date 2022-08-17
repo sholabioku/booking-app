@@ -1,4 +1,6 @@
 import express from 'express';
+import asyncHandler from 'express-async-handler';
+
 import Hotel from '../models/Hotel.js';
 import { createError } from '../utils/error.js';
 
@@ -7,21 +9,22 @@ const router = express.Router();
 // @desc Create Hotel
 // @route POST /api/v1/hotels
 // @access Private
-router.post('/', async (req, res) => {
-  const newHotel = new Hotel(req.body);
-  try {
+router.post(
+  '/',
+  asyncHandler(async (req, res) => {
+    const newHotel = new Hotel(req.body);
+
     const savedHotel = await newHotel.save();
     res.status(200).json(savedHotel);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+  })
+);
 
 // @desc Update Hotel
 // @route PUT /api/v1/hotels/:id
 // @access Private
-router.put('/:id', async (req, res) => {
-  try {
+router.put(
+  '/:id',
+  asyncHandler(async (req, res) => {
     const updatedHotel = await Hotel.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
@@ -31,45 +34,40 @@ router.put('/:id', async (req, res) => {
       }
     );
     res.status(200).json(updatedHotel);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+  })
+);
 
 // @desc Delete Hotel
 // @route DELETE /api/v1/hotels/:id
 // @access Private
-router.delete('/:id', async (req, res) => {
-  try {
+router.delete(
+  '/:id',
+  asyncHandler(async (req, res) => {
     await Hotel.findByIdAndDelete(req.params.id);
     res.status(200).json('Hotel has been deleted');
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+  })
+);
 
 // @desc Get All Hotels
 // @route GET /api/v1/hotels
 // @access Public
-router.get('/', async (req, res, next) => {
-  try {
+router.get(
+  '/',
+  asyncHandler(async (req, res, next) => {
     const hotels = await Hotel.find();
     res.status(200).json(hotels);
-  } catch (err) {
-    next(err);
-  }
-});
+  })
+);
 
 // @desc Get Hotel by ID
 // @route GET /api/v1/hotels/:id
 // @access Private
-router.get('/:id', async (req, res) => {
-  try {
+router.get(
+  '/:id',
+  asyncHandler(async (req, res) => {
     const hotel = await Hotel.findById(req.params.id);
     res.status(200).json(hotel);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+  })
+);
 
 export default router;
