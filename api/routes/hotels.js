@@ -1,6 +1,6 @@
 import express from 'express';
 import Hotel from '../models/Hotel.js';
-import { createErrorMessage } from '../utils/error.js';
+import { createError } from '../utils/error.js';
 
 const router = express.Router();
 
@@ -52,8 +52,6 @@ router.delete('/:id', async (req, res) => {
 // @route GET /api/v1/hotels
 // @access Public
 router.get('/', async (req, res, next) => {
-  const failed = true;
-  if (failed) return next(createErrorMessage(401, 'Unauthorized'));
   try {
     const hotels = await Hotel.find();
     res.status(200).json(hotels);
