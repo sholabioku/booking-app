@@ -8,10 +8,11 @@ import {
   getHotel,
   updateHotel,
 } from '../controllers/hotel.js';
+import { verifyAdmin } from '../utils/verifyToken.js';
 
-router.post('/', createHotel);
-router.put('/:id', updateHotel);
-router.delete('/:id', deleteHotel);
+router.post('/', verifyAdmin, createHotel);
+router.put('/:id', verifyAdmin, updateHotel);
+router.delete('/:id', verifyAdmin, deleteHotel);
 router.get('/', getHotels);
 router.get('/:id', getHotel);
 
