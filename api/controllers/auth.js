@@ -40,7 +40,7 @@ export const login = asyncHandler(async (req, res, next) => {
 
   const { password, isAdmin, ...userData } = user._doc;
   res
-    .cookie('access-token', token, {
+    .cookie('access_token', token, {
       httpOnly: true,
     })
     .status(200)
