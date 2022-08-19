@@ -43,6 +43,17 @@ export const getHotels = asyncHandler(async (req, res, next) => {
   res.status(200).json(hotels);
 });
 
+// @desc Get All Hotels By City
+// @route GET /api/v1/hotels/countByCity
+// @access Public
+export const countByCity = asyncHandler(async (req, res, next) => {
+  const cities = req.query.cities.split(',');
+  const list = await Promise.all(
+    cities.map((city) => Hotel.countDocuments({ city }))
+  );
+  res.status(200).json(list);
+});
+
 // @desc Get Hotel by ID
 // @route GET /api/v1/hotels/:id
 // @access Private
