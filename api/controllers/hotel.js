@@ -39,7 +39,12 @@ export const deleteHotel = asyncHandler(async (req, res) => {
 // @route GET /api/v1/hotels
 // @access Public
 export const getHotels = asyncHandler(async (req, res, next) => {
-  const hotels = await Hotel.find(req.query).limit(req.query.limit);
+  const { min, max, ...others } = req.query;
+
+  const hotels = await Hotel.find({
+    others,
+    cheapestPrice: { $gt: min | 1, $lt: max | 999 },
+  }).limit(req.query.limit);
   res.status(200).json(hotels);
 });
 
