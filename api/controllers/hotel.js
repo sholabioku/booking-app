@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 
 import Hotel from '../models/Hotel.js';
+import Room from '../models/Room.js';
 
 // @desc Create Hotel
 // @route POST /api/v1/hotels
@@ -84,4 +85,17 @@ export const countByType = asyncHandler(async (req, res, next) => {
 export const getHotel = asyncHandler(async (req, res) => {
   const hotel = await Hotel.findById(req.params.id);
   res.status(200).json(hotel);
+});
+
+// @desc Get Hotel Rooms
+// @route GET /api/v1/hotels/room/:hotelId
+// @access Private
+export const getHotelRooms = asyncHandler(async (req, res) => {
+  const hotel = await Hotel.findById(req.params.hotelId);
+  const hotelRooms = await Promise.all(
+    hotel.rooms.map((room) => {
+      return Room.findById(room);
+    })
+  );
+  res.status(200).json(hotelRooms);
 });
