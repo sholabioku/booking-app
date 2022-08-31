@@ -28,6 +28,14 @@ const Reserve = ({ setOpen, hotelId }) => {
 
   const allDates = getDatesInRange(dates[0].startDate, dates[0].endDate);
 
+  const isAvailable = (roomNumber) => {
+    const isFound = roomNumber.unavailableDates.some((date) =>
+      allDates.includes(new Date(date).getTime())
+    );
+
+    return !isFound;
+  };
+
   const handleSelect = (e) => {
     const checked = e.target.checked;
     const value = e.target.value;
@@ -67,6 +75,7 @@ const Reserve = ({ setOpen, hotelId }) => {
                   type='checkbox'
                   value={roomNumber._id}
                   onChange={handleSelect}
+                  disabled={!isAvailable(roomNumber)}
                 />
               </div>
             ))}
