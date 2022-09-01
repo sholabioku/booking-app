@@ -1,11 +1,14 @@
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SearchContext } from '../../context/SearchContext';
 import useFetch from '../../hooks/useFetch';
 import './reserve.css';
 
 const Reserve = ({ setOpen, hotelId }) => {
+  const navigate = useNavigate();
   const [selectedRooms, setSelectedRooms] = useState([]);
   const { data, loading, error } = useFetch(`/hotels/room/${hotelId}`);
   const { dates } = useContext(SearchContext);
@@ -47,7 +50,20 @@ const Reserve = ({ setOpen, hotelId }) => {
     );
   };
 
-  const handleClick = () => {};
+  const handleClick = async () => {
+    try {
+      await Promise.all(
+        selectedRooms.map((roomId) => {
+          const res = axios.put(`/rooms/availability/${roomId}`, {
+            dates: allDates,
+          });
+          return res.data;
+        })
+      );
+      setOpen(false);
+      navigate('/');
+    } catch (err) {}
+  };
 
   return (
     <div className='reserve'>
@@ -68,17 +84,19 @@ const Reserve = ({ setOpen, hotelId }) => {
               </div>
               <div className='rPrice'>{item.price}</div>
             </div>
-            {item.roomNumbers.map((roomNumber) => (
-              <div className='room'>
-                <label>{roomNumber.number}</label>
-                <input
-                  type='checkbox'
-                  value={roomNumber._id}
-                  onChange={handleSelect}
-                  disabled={!isAvailable(roomNumber)}
-                />
-              </div>
-            ))}
+            <div className='rSelectRooms'>
+              {item.roomNumbers.map((roomNumber) => (
+                <div className='room'>
+                  <label>{roomNumber.number}</label>
+                  <input
+                    type='checkbox'
+                    value={roomNumber._id}
+                    onChange={handleSelect}
+                    disabled={!isAvailable(roomNumber)}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         ))}
         <button onClick={handleClick} className='rButton'>

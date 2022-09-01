@@ -31,6 +31,21 @@ export const updateRoom = asyncHandler(async (req, res) => {
   res.status(200).json(updatedRoom);
 });
 
+// @desc Update Room Availability
+// @route PUT /api/v1/rooms/availability/:id
+// @access Public
+export const updateRoomAvailability = async (req, res, next) => {
+  await Room.updateOne(
+    { 'roomNumbers._id': req.params.id },
+    {
+      $push: {
+        'roomNumbers.$.unavailableDates': req.body.dates,
+      },
+    }
+  );
+  res.status(200).json('Room status has been updated.');
+};
+
 // @desc Delete Room
 // @route DELETE /api/v1/rooms/:id/:hotelId
 // @access Private
