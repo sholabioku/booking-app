@@ -44,5 +44,5 @@ export const login = asyncHandler(async (req, res, next) => {
       httpOnly: true,
     })
     .status(200)
-    .json(userData);
+    .json({ details: { ...userData }, isAdmin });
 });
