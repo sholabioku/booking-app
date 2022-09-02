@@ -26,13 +26,13 @@ export const userInputs = [
     id: 5,
     label: 'Country',
     type: 'text',
-    placeholder: 'USA',
+    placeholder: 'Nigeria',
   },
   {
     id: 6,
     label: 'City',
     type: 'text',
-    placeholder: 'USA',
+    placeholder: 'Lagos',
   },
 ];
 
