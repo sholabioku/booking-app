@@ -50,7 +50,7 @@ const Datatable = ({ columns }) => {
   return (
     <div className='datatable'>
       <div className='datatableTitle'>
-        Add New User
+        <h3>{path}</h3>
         <Link to={`/${path}/new`} className='link'>
           Add New
         </Link>
