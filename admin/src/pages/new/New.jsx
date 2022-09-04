@@ -25,11 +25,19 @@ const New = ({ inputs, title }) => {
         'https://api.cloudinary.com/v1_1/techbilush/image/upload',
         data
       );
-      console.log(uploadRes.data);
+      const { url } = uploadRes.data;
+      const newUser = {
+        ...info,
+        img: url,
+      };
+
+      await axios.post('/auth/register', newUser);
     } catch (error) {
       console.log(error);
     }
   };
+
+  console.log(info);
 
   return (
     <div className='new'>
@@ -71,6 +79,7 @@ const New = ({ inputs, title }) => {
                     onChange={handleChange}
                     type={input.type}
                     placeholder={input.placeholder}
+                    id={input.id}
                   />
                 </div>
               ))}
