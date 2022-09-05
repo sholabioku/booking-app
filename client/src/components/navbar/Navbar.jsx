@@ -13,7 +13,10 @@ const Navbar = () => {
           <span className='logo'>bilushbooking</span>
         </Link>
         {user ? (
-          user.username
+          <div className='navItems'>
+            {user.username}
+            <button className='navButton'>Logout</button>
+          </div>
         ) : (
           <div className='navItems'>
             <button className='navButton'>Register</button>
