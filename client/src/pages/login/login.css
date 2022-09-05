@@ -3,17 +3,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #f0f2f5;
 }
 
 .lContainer {
+  width: 500px;
   display: flex;
   flex-direction: column;
+  border-radius: 10px;
   gap: 10px;
+  height: calc(100vh - 50vh);
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
 }
 
 .lInput {
-  height: 30px;
+  outline: none;
+  height: 20px;
   padding: 10px;
+  border: 1px solid #e4e6eb;
+  background-color: #fff;
+  border-radius: 10px;
+  font-size: 1rem;
 }
 
 .lButton {
@@ -24,9 +37,26 @@
   font-weight: bold;
   cursor: pointer;
   border-radius: 5px;
+  width: 55%;
 }
 
 .lButton:disabled {
   background-color: #0071c28c;
   cursor: not-allowed;
+}
+
+.lForgotPassword {
+  color: #0071c28c;
+  cursor: pointer;
+}
+
+.lForgotPassword:hover {
+  text-decoration: underline;
+}
+
+.lRegister {
+  font-weight: 600;
+  color: rgb(79, 192, 79);
+  text-decoration: underline;
+  cursor: pointer;
 }
