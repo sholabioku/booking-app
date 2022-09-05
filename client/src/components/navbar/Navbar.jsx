@@ -27,12 +27,12 @@ const Navbar = () => {
           </div>
         ) : (
           <div className='navItems'>
-            <button className='navButton' onClick={() => navigate('/register')}>
-              Register
-            </button>
-            <button className='navButton' onClick={() => navigate('/login')}>
-              Login
-            </button>
+            <Link to='/register'>
+              <button className='navButton'>Register</button>
+            </Link>
+            <Link to='/login'>
+              <button className='navButton'>Login</button>
+            </Link>
           </div>
         )}
       </div>
