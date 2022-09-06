@@ -41,7 +41,7 @@ const Login = () => {
       <Header type='list' />
       <div className='login'>
         <div className='lContainer'>
-          <h2 className='lTitle'>Login</h2>
+          <h2 className='lTitle'>Sign In</h2>
           <input
             type='text'
             placeholder='Enter username'

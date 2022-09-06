@@ -41,7 +41,7 @@ const Register = () => {
       <Header type='list' />
       <div className='login'>
         <div className='lContainer'>
-          <h2 className='lTitle'>Register</h2>
+          <h2 className='lTitle'>Create an account</h2>
           <input
             type='text'
             placeholder='Enter username'
