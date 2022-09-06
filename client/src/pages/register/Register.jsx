@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Header from '../../components/header/Header';
+import Navbar from '../../components/navbar/Navbar';
 import { AuthContext } from '../../context/AuthContext';
 import './register.css';
 
@@ -34,56 +36,67 @@ const Register = () => {
   };
 
   return (
-    <div className='register'>
-      <div className='rContainer'>
-        <input
-          type='text'
-          placeholder='username'
-          id='username'
-          onChange={handleChange}
-          className='rInput'
-        />
-        <input
-          type='email'
-          placeholder='email'
-          id='email'
-          onChange={handleChange}
-          className='rInput'
-        />
-        <input
-          type='password'
-          placeholder='password'
-          id='password'
-          onChange={handleChange}
-          className='rInput'
-        />
-        <input
-          type='text'
-          placeholder='phone'
-          id='phone'
-          onChange={handleChange}
-          className='rInput'
-        />
-        <input
-          type='text'
-          placeholder='city'
-          id='city'
-          onChange={handleChange}
-          className='rInput'
-        />
-        <input
-          type='text'
-          placeholder='counrty'
-          id='counrty'
-          onChange={handleChange}
-          className='rInput'
-        />
-        <button disabled={loading} onClick={handleClick} className='rButton'>
-          Register
-        </button>
-        {error && <span>{error.message}</span>}
+    <>
+      <Navbar />
+      <Header type='list' />
+      <div className='login'>
+        <div className='lContainer'>
+          <h2 className='lTitle'>Register</h2>
+          <input
+            type='text'
+            placeholder='Enter username'
+            id='username'
+            onChange={handleChange}
+            className='lInput'
+          />
+          <input
+            type='email'
+            placeholder='Enter email'
+            id='email'
+            onChange={handleChange}
+            className='lInput'
+          />
+          <input
+            type='password'
+            placeholder='Enter password'
+            id='password'
+            onChange={handleChange}
+            className='lInput'
+          />
+          <input
+            type='text'
+            placeholder='Enter phone'
+            id='phone'
+            onChange={handleChange}
+            className='lInput'
+          />
+          <input
+            type='city'
+            placeholder='Enter city'
+            id='city'
+            onChange={handleChange}
+            className='lInput'
+          />
+          <input
+            type='counrty'
+            placeholder='Enter country'
+            id='country'
+            onChange={handleChange}
+            className='lInput'
+          />
+          <button disabled={loading} onClick={handleClick} className='lButton'>
+            SignUp
+          </button>
+          <div className='lCreateAccount'>
+            Already created account?{' '}
+            <Link to='/login' className='lRegister'>
+              signIn
+            </Link>{' '}
+          </div>
+          {error && <span>{error.message}</span>}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
